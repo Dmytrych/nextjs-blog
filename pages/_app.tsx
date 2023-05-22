@@ -15,7 +15,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
         />
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-86D2228H6F"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XC84ZYE7YF"
           strategy="beforeInteractive"
         />
         <Script
@@ -26,8 +26,8 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-  
-            gtag('config', 'G-86D2228H6F');`,
+          
+            gtag('config', 'G-XC84ZYE7YF');`,
           }}
         />
         <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">

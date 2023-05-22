@@ -30,7 +30,7 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
           <p className="mb-3">{post.description}</p>
           <p>
             <Link as={`/posts/${post.slug}`} href={`/posts/[slug]`}>
-              <a>Read More</a>
+              <a>Читати...</a>
             </Link>
           </p>
         </article>

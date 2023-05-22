@@ -1,10 +1,26 @@
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/globals.css';
 import Script from "next/script";
+import {useRouter} from "next/router";
+import * as gtag from "../lib/gtag"
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
         <Script
@@ -27,7 +43,9 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
           
-            gtag('config', 'G-XC84ZYE7YF');`,
+            gtag('config', 'G-XC84ZYE7YF', {
+              page_path: window.location.pathname
+            });`,
           }}
         />
         <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">

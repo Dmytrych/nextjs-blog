@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import '../styles/globals.css';
 import Script from "next/script";
-import Head from "next/head";
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (

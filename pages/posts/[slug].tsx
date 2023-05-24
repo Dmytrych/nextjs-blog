@@ -16,7 +16,8 @@ import remarkGfm from 'remark-gfm';
 import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
 import { MetaProps } from '../../types/layout';
 import { PostType } from '../../types/post';
-import { postFilePaths, POSTS_PATH } from '../../utils/mdxUtils';
+import {getAllLocalePostFilePaths, getLocalisedPostPath} from '../../utils/mdxUtils';
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -58,8 +59,8 @@ const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const postFilePath = path.join(getLocalisedPostPath(locale), `${params.slug}.mdx`);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);
@@ -90,16 +91,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       source: mdxSource,
       frontMatter: data,
+      ...(await serverSideTranslations(locale, ['common']))
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = postFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  let paths = [];
+
+  locales.map((locale) => {
+    paths = paths.concat(
+      getAllLocalePostFilePaths(locale)
+        // Remove file extensions for page paths
+        .map((path) => path.replace(/\.mdx?$/, ''))
+        // Map the path into the static paths object required by Next.js
+        .map((slug) => ({ params: { slug }, locale })));
+  })
 
   return {
     paths,

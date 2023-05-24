@@ -3,6 +3,7 @@ import { MetaProps } from '../types/layout';
 import Head from './Head';
 import Navigation from './Navigation';
 import ThemeSwitch from './ThemeSwitch';
+import {useTranslation} from "next-i18next";
 
 type LayoutProps = {
   children: React.ReactNode;

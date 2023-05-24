@@ -5,6 +5,7 @@ import '../styles/globals.css';
 import Script from "next/script";
 import {useRouter} from "next/router";
 import * as gtag from "../lib/gtag"
+import {appWithTranslation} from "next-i18next";
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
@@ -55,4 +56,4 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);

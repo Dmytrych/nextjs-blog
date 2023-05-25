@@ -1,33 +1,34 @@
 ---
 title: "ESLint: Plugins vs Rules"
-description: Пояснюю різницю між правилами(rules) та плагінами(plugins) у ESLint.
+description: Explaining difference between ESLint rules and plugins.
 date: '2023-05-22'
 ---
 
-ESLint - це потужний інструмент для перевірки якості коду в проектах JavaScript. Однак, два основних поняття, з якими стикаються користувачі ESLint, - це "правила" та "плагіни". Давайте розберемося у відмінностях між ними.
+ESLint is a powerful tool for checking code quality in JavaScript projects. However, the two main concepts that ESLint users encounter are "rules" and "plugins". Let's find out the differences between them.
 
-## Правила (Rules)
 
-Правила в ESLint - це набір правил, які визначають правильний або неправильний стиль написання коду. Вони допомагають виявити потенційні проблеми в коді та стильові недоліки, такі як відсутність крапки з комою, використання неоголошених змінних, використання заборонених функцій тощо. ESlint має вбудований набір правил, які можна використовувати за замовчуванням. Проте, ви також можете налаштовувати правила згідно з власними потребами.
+## Rules
 
-Наприклад, ось декілька прикладів правил:
+Rules in ESLint are a set of rules that define the correct or incorrect style of writing code. They help identify potential code problems and stylistic flaws such as missing semicolons, use of undeclared variables, use of forbidden functions, etc. ESLint has a built-in set of rules that you can use by default. However, you can also customize the rules according to your own needs.
 
-- `semi` - це правило вимагає використовувати крапку з комою в кінці кожного оператора.
-- `no-console` - це правило забороняє використання функції `console.log()` та інших методів `console` у продакшн-коді.
+For example, here are some examples of rules:
 
-## Плагіни (Plugins)
+- `semi` - this rule requires the use of a semicolon at the end of each statement.
+- `no-console` - this rule prohibits the use of the `console.log()` function and other `console` methods in production code.
 
-Плагіни в ESlint - це додаткові модулі, які дозволяють розширити функціональність ESlint. Вони надають додаткові правила та можливості перевірки коду, які не включені в основний набір правил. Плагіни можуть бути розроблені спільнотою ESlint або створені вами самостійно. Щоб використовувати плагін, спочатку потрібно його встановити через менеджер пакетів, такий як npm або yarn.
+## Plugins
 
-Наприклад, плагін `eslint-plugin-react` - це популярний плагін для перевірки коду, пов'язаного
+Plugins in ESlint are additional modules that allow you to extend the functionality of ESlint. They provide additional rules and code inspection capabilities that are not included in the core ruleset. Plugins can be developed by the ESLint community or created by you. To use a plugin, you must first install it via a package manager such as npm or yarn.
 
-## Висновок
+For example, the `eslint-plugin-react` plugin is a popular plugin for checking React code.
 
-Правила та плагіни є важливими складовими ESlint. Правила допомагають забезпечити правильний стиль коду та виявити потенційні проблеми, тоді як плагіни дозволяють розширити функціональність ESlint та використовувати специфічні правила для конкретних технологій або фреймворків. З правильним налаштуванням правил та використанням плагінів, ви можете покращити якість свого коду та забезпечити більш однорідний стиль розробки.
+## Summary
 
-## Дізнайтеся більше
+Rules and plugins are important components of ESlint. Rules help ensure correct code style and identify potential problems, while plugins allow you to extend ESlint's functionality and use specific rules for specific technologies or frameworks. With the right rules setup and use of plugins, you can improve the quality of your code and ensure a more consistent development style.
 
-- Як встановити ESlint: [посилання](eslint-setup).
-- Oфіційна документація ESlint: [посилання](https://eslint.org/docs/latest/).
+## More on this topic
 
-[Більше цікавих статей](/).
+- How to install ESLint: [link](eslint-setup).
+- Official ESLint documentation: [link](https://eslint.org/docs/latest/).
+
+[More articles](/).

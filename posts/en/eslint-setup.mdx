@@ -1,24 +1,24 @@
 ---
-title: "ESLint: Що? Чому? Де? Як?"
-description: Як встановити та налаштувати ESLint у вашому JS проекті.
+title: "ESLint: How to install and configure?"
+description: Guide, explaining how to install and configure ESLint for your JS project.
 date: '2023-05-21'
 ---
 
-## Що таке ESLint?
+## What is ESLint?
 
-ESLint - це лінтер, для NodeJS застосунків. Його призначення - автоматично виявляти можливі проблеми у вашому коді. Лінтери, і ESLint зокрема, можуть визначати не тільки проблеми у форматуванні коду, а й бачити потенційні баги, проблеми в роботі, пробіли в безпеці вашого застосунку.
+ESLint is a linter for NodeJS applications. Its purpose is to automatically detect potential problems in your code. Linters, and ESLint in particular, can identify not only problems in code formatting, but also see potential bugs, problems in operation, gaps in the security of your application.
 
-Саме цим ESLint і відрізняється від інструмента для форматування коду, Prettier, який може лише знаходити та фіксити проблеми код-стайлів, але не скаже якщо ваш код містить помилку. Prettier можна використовувати в комбінації з ESLint, для просування код-стайлів. Детальніше про те як встановити Prettier - ([в окремій статті](prettier-setup)).
+This is what makes ESLint different from the code formatting tool, Prettier, which can only find and fix code style issues, but won't tell you if your code contains an error. Prettier can be used in combination with ESLint to promote code styles. More about how to install Prettier - ([in a separate article](prettier-setup)).
 
-## Встановлення та конфігурація ESLint
+## Installation
 
-Для того щоб автоматично встановити ESLint та додати усі потрібні для роботи файли, достатньо прописати в терміналі наступну команду:
+In order to automatically install ESLint and add all the necessary files for work, it is enough to write the following command in the terminal:
 
 ```
 npm init @eslint/config
 ```
 
-Після введення команди, вас запитає про те, який функціонал ESLint ви плануєте використовувати. Вибір здійснюється стрілками клавіатури, а саме вікно вибору виглядає так:
+After entering the command, you will be asked which ESLint feature you plan to use. The selection is made with the keyboard arrows, and the selection window itself looks like this:
 
 <Image
     src={`/images/eslint-setup/choice.png`}
@@ -27,33 +27,33 @@ npm init @eslint/config
     priority
 />
 
-Відповідно до вашого вибору, будуть підібрані налаштування лінтера.
+Based on your selection, the linter settings will be selected.
 
-## Процес налаштування
+## Configuration process
 
-Наразі немає сенсу описувати повний процес, проте хочу звернути вашу увагу на кілька пунктів:
+There is no point in describing the full process at this time, but I would like to draw your attention to a few points:
 
 <details>
     <summary>**"How would you like to define a style for your project?"**</summary>
 
-    В цій опції раджу обрати варіант з `guide`, якщо ви налаштовуєте ESLint вперше. Будь-які потрібні вам налаштування можна буде змінити після встановлення, коли вам це буде потрібно.
+    In this option, I advise you to choose the `guide` option if you are setting up ESLint for the first time. Any settings you need can be changed after installation whenever you need.
 </details>
 
 <details>
     <summary>**"Which style guide do you want to follow?"**</summary>
 
-    Знову ж таки, для першого разу раджу встановити `Standard`, і змінити в разі потреби.
+    Again, for the first time I advise you to set `Standard`, and change if necessary.
 </details>
 
 <details>
     <summary>**"What format do you want your config file to be in?"**</summary>
 
-    Тут можете обирати будь-який з форматів. Але наголошу, що більшість статтей в інтернеті використовують саме JSON формат. Ця стаття не буде виключенням.
+    Here you can choose any of the formats. But I would like to emphasize that most articles on the Internet use the JSON format. This article will be no exception.
 </details>
 
-Після процесу установки, у вашому проекті має з'явитися `.eslintrc.*` файл з вибраним розширенням.
+After the installation process, a `.eslintrc.*` file with the selected extension should appear in your project.
 
-Мій `.eslintrc.json` виглядає так:
+My `.eslintrc.json` looks like this:
 <Image
     src={`/images/eslint-setup/eslintrc.png`}
     width={395}
@@ -61,17 +61,17 @@ npm init @eslint/config
     priority
 />
 
-## Плагіни ESLint
+## ESLint plugins
 
-ESLint окрім стандартного набору правил, має інтерфейс для встановлення доповнень(плагінів) у ваш проект. Для того, щоб використати кастомний плагін необхідно встановити його через npm/yarn, після чого додати плагін у список `plugins`.
+ESLint, in addition to the standard set of rules, has an interface for installing add-ons (plugins) into your project. In order to use a custom plugin, you need to install it via npm/yarn, and then add the plugin to the `plugins` list.
 
-Приклад встановлення плагіна Prettier для ESLint можна побачити у [минулій статті](prettier-setup).
+An example of setting up the Prettier plugin for ESLint can be seen in [the previous article](prettier-setup).
 
-Корисні плагіни для ESLint [можна знайти тут](https://github.com/dustinspecker/awesome-eslint#plugins).
+Useful plugins for ESLint [found here](https://github.com/dustinspecker/awesome-eslint#plugins).
 
-## Інтеграція з IDE
+## IDE support
 
-Деякі IDE потребують додаткової конфігурації, щоб увімкнути підсвітку помилок ESLint у редакторі. Плагіни або гайди для налаштування ESLint для популярних IDE:
+Some IDEs require additional configuration to enable ESLint error highlighting in the editor. Plugins or guides for configuring ESLint for popular IDEs:
 
 - [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [WebStorm](https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_activate)
@@ -79,13 +79,13 @@ ESLint окрім стандартного набору правил, має і�
 - [Vim](https://vimawesome.com/plugin/eslint)
 - [Atom](https://hackernoon.com/set-up-eslint-in-atom-83dfb3d34fdf)
 
-## Підсумок
+## Summary
 
-ESLint - лінтер для NodeJS застосунків з обширним функціоналом, який допоможе контролювати дотримання код-стилів у вашому проекті, допоможе у знаходженні потенційних багів, або помилок у синтаксисі. ESLint можна доволі гнучко налаштовувати за допомогою точкового редагування правил його роботи, та встановлення зовнішніх доповнень. ESLint має інтеграцію з обширним списком середовищ розробки.
+ESLint is a linter for NodeJS applications with extensive functionality that will help you monitor compliance with code styles in your project, help you find potential bugs or syntax errors. ESLint can be configured quite flexibly by point-editing its rules and installing external add-ons. ESLint has integration with an extensive list of development environments.
 
-## Більше про ESLint
+## Read more about ESLint
 
-- Різниця між Плагінами та Правилами ESLint: [посилання](eslint-rules-vs-plugins)
-- Oфіційна документація: [посилання](https://eslint.org/docs/latest/).
+- Difference between ESLint Plugins and Rules: [link](eslint-rules-vs-plugins)
+- Official documentation: [link](https://eslint.org/docs/latest/).
 
-[Більше цікавих статей](/).
+[More articles](/).

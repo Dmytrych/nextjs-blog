@@ -24,31 +24,33 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
   return (
     <>
-        <Script
+        {!process.env.NEXT_DISABLE_GOOGLE_ANALYTICS && (<>
+          <Script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6281606897577273"
             crossOrigin="anonymous"
             strategy="beforeInteractive"
-        />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-XC84ZYE7YF"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id='google-analytics'
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-          
-            gtag('config', 'G-XC84ZYE7YF', {
-              page_path: window.location.pathname
-            });`,
-          }}
-        />
+          />
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-XC84ZYE7YF"
+            strategy="beforeInteractive"
+          />
+          <Script
+            id='google-analytics'
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-XC84ZYE7YF', {
+                page_path: window.location.pathname
+              });`,
+            }}
+          />
+        </>)}
         <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
             <Component {...pageProps} />
         </ThemeProvider>

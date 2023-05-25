@@ -1,12 +1,17 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import Link from "next/link";
+import {GetStaticProps} from "next";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 
-export const About = (): JSX.Element => {
+export const Contacts = (): JSX.Element => {
+    const { t } = useTranslation();
+
     return (
         <Layout
             customMeta={{
-                title: 'About - Хабазня Дмитро',
+                title: `${t('common:contacts')} - Хабазня Дмитро`,
             }}
         >
             <h1>Контакти</h1>
@@ -19,4 +24,10 @@ export const About = (): JSX.Element => {
     );
 };
 
-export default About;
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+    return {
+        props: { ...(await serverSideTranslations(locale, ['common'])) },
+    };
+};
+
+export default Contacts;

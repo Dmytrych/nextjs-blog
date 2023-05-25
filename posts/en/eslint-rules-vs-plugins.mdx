@@ -1,0 +1,34 @@
+---
+title: "ESLint: Plugins vs Rules"
+description: Explaining difference between ESLint rules and plugins.
+date: '2023-05-22'
+---
+
+ESLint is a powerful tool for checking code quality in JavaScript projects. However, the two main concepts that ESLint users encounter are "rules" and "plugins". Let's find out the differences between them.
+
+
+## Rules
+
+Rules in ESLint are a set of rules that define the correct or incorrect style of writing code. They help identify potential code problems and stylistic flaws such as missing semicolons, use of undeclared variables, use of forbidden functions, etc. ESLint has a built-in set of rules that you can use by default. However, you can also customize the rules according to your own needs.
+
+For example, here are some examples of rules:
+
+- `semi` - this rule requires the use of a semicolon at the end of each statement.
+- `no-console` - this rule prohibits the use of the `console.log()` function and other `console` methods in production code.
+
+## Plugins
+
+Plugins in ESlint are additional modules that allow you to extend the functionality of ESlint. They provide additional rules and code inspection capabilities that are not included in the core ruleset. Plugins can be developed by the ESLint community or created by you. To use a plugin, you must first install it via a package manager such as npm or yarn.
+
+For example, the `eslint-plugin-react` plugin is a popular plugin for checking React code.
+
+## Summary
+
+Rules and plugins are important components of ESlint. Rules help ensure correct code style and identify potential problems, while plugins allow you to extend ESlint's functionality and use specific rules for specific technologies or frameworks. With the right rules setup and use of plugins, you can improve the quality of your code and ensure a more consistent development style.
+
+## More on this topic
+
+- How to install ESLint: [link](eslint-setup).
+- Official ESLint documentation: [link](https://eslint.org/docs/latest/).
+
+[More articles](/).

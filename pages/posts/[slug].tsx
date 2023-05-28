@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {GetStaticPaths, GetStaticProps} from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
@@ -18,6 +18,8 @@ import { PostType } from '../../types/post';
 import {getAllLocalePostFilePaths, getLocalisedPostPath} from '../../utils/mdxUtils';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
+import React from "react";
+import {useRouter} from "next/router";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -32,9 +34,11 @@ const components = {
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: PostType;
+  hostName: string;
 };
 
-const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
+const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element => {
+  const router = useRouter();
   const customMeta: MetaProps = {
     title: `${frontMatter.title} - Habaznia Dmytro`,
     description: frontMatter.description,
@@ -42,20 +46,29 @@ const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
     date: frontMatter.date,
     type: 'article',
   };
+
   return (
-    <Layout customMeta={customMeta}>
-      <article>
-        <h1 className="mb-3 text-gray-900 dark:text-white">
-          {frontMatter.title}
-        </h1>
-        <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-          {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
-        </p>
-        <div className="prose dark:prose-dark">
-          <MDXRemote {...source} components={components} />
-        </div>
-      </article>
-    </Layout>
+    <>
+      <Head>
+        {router.locales.map((locale) =>
+            locale !== router.defaultLocale
+                ? <link key={locale} rel="alternate" hrefLang={locale} href={`${hostName}${locale}${router.asPath}`} />
+                : <link key={locale} rel="alternate" hrefLang="x-default" href={`${hostName}${locale}${router.asPath}`} />)}
+      </Head>
+      <Layout customMeta={customMeta}>
+        <article>
+          <h1 className="mb-3 text-gray-900 dark:text-white">
+            {frontMatter.title}
+          </h1>
+          <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
+            {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
+          </p>
+          <div className="prose dark:prose-dark">
+            <MDXRemote {...source} components={components} />
+          </div>
+        </article>
+      </Layout>
+    </>
   );
 };
 
@@ -89,6 +102,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: {
+      hostName: process.env.NEXT_HOST,
       source: mdxSource,
       frontMatter: data,
       ...(await serverSideTranslations(locale, ['common']))

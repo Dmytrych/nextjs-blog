@@ -50,8 +50,8 @@ const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element
   return (
     <>
       <Head>
-        {router.locales.map((locale) => <link key={locale} rel="alternate" hrefLang={locale} href={`${hostName}${locale}${router.asPath}`} />)}
-        <link rel="alternate" hrefLang="x-default" href={`${hostName}${router.asPath}`} />
+        {router.locales.map((locale) => <link key={locale} rel="alternate" hrefLang={locale} href={`${hostName}/${locale}${router.asPath}`} />)}
+        <link rel="alternate" hrefLang="x-default" href={`${hostName}/${router.defaultLocale}${router.asPath}`} />
       </Head>
       <Layout customMeta={customMeta}>
         <article>

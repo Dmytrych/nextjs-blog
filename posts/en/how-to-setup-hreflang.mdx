@@ -1,0 +1,63 @@
+---
+title: "SEO for localized content: How to add hreflang attribute"
+description: How to add rel="alternate" hrefLang="en" attribute to your website. Common problems and their solutions. Hreflang for SEO.
+date: '2023-06-03'
+---
+
+## What is a hreflang Attribute?
+
+`hreflang` attribute is a part of the HTML tag:
+
+```
+<link rel="alternate" href="https://example.com" hreflang="uk-ua" />
+```
+
+The presence of this tag means that the page on which it is placed **has translations in other languages**.
+
+This tag is intended to facilitate the indexing of your site by search engines. Google uses "hreflang" to determine which version of the page to suggest to the user.
+
+### Adding the hreflang
+
+For example, you have a website localized in two languages: the main language - **Ukrainian**, and an additional one - **English**. In this case, your `<head>` tag should contain the following:
+
+```
+<head>
+  ...
+  <link rel="alternate" hrefLang="en" href={`https://example.com/en`} />
+  <link rel="alternate" hrefLang="uk-UA" href={`https://example.com/uk`} />
+  <link rel="alternate" hrefLang="x-default" href={`https://example.com`} />
+  ...
+</head>
+```
+
+In this example, `hrefLang` attributes contain locale names.
+
+Look at the `hreflang` value for the Ukrainian localization: in addition to the translation language value, it also has the specified region "UA". Thus, for another region, you can create your own localization in this language. However, if the region is not important - it can be omitted, for example, both users from "en-NZ" and from "en-US" will get to the "en" locale.
+
+The `x-default` value will be used by the search engine if the user's locale does not match any of the listed ones. Then the page specified in the tag with `x-default` will be returned to the user.
+
+### Href Attribute Value
+
+There is a nuance related to the value of the `href` attribute - the link to the localized page **must be absolute**, along with `https://` and the domain name. Google will **not accept** links `example.com/en`, `/en` and others.
+
+## Common Mistakes
+
+1. Make sure that each version of the page has a return link to all available localization options.
+
+Suppose we have two versions of the same page, in languages X and Y. It follows that page X should have `link` tags with "hreflang=X" and "hreflang=Y".
+
+Page Y must have identical `hreflang`, too. If page Y does not have, for example, `hreflang=X', then Google will refuse to index it.
+
+2. Check that you have entered the values exactly in [ISO_639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Localization names in this standard differ from country codes. As an example, you may have already noticed that the "uk" localization means the Ukrainian localization. The British localization is indicated as "gb".
+
+3. The specified locale "hreflang" must match the value specified in the `<html lang="">` tag. The value of this attribute should change with localization.
+
+4. Not specified or invalid `x-default`.
+
+5. The specified relative, not the absolute value of `href`. Only links of the format "https://example.com/en" will be valid, not "example.com/en" or "/en".
+
+### How to Check the Validity of the hreflang on Your Website?
+
+For automatic analysis of errors related to localization, I recommend the site https://technicalseo.com/tools/hreflang/. Although you can find more similar services by searching on Google.
+
+[More interesting articles](/).

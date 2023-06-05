@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: {
-      hostName: process.env.NEXT_HOST,
+      hostName: process.env.NEXT_PUBLIC_HOST,
       source: mdxSource,
       frontMatter: data,
       ...(await serverSideTranslations(locale, ['common']))

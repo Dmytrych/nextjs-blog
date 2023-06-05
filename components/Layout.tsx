@@ -15,7 +15,7 @@ export const WEBSITE_HOST_URL = 'https://nextjs-typescript-mdx-blog.vercel.app';
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>
-      <Head customMeta={customMeta} />
+      <Head customMeta={customMeta}/>
       <header>
         <div className="max-w-5xl px-8 mx-auto">
           <div className="flex items-center justify-between py-6">

@@ -20,8 +20,8 @@ const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
       <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
       <link rel="apple-touch-icon" href="/favicon.ico" />
       <meta content={meta.description} name="description" />
-      <meta property="og:url" content={`${process.env.NEXT_HOST}${router.asPath}`} />
-      <link rel="canonical" href={`${process.env.NEXT_HOST}${router.defaultLocale}${router.asPath}`} />
+      <meta property="og:url" content={`${process.env.NEXT_PUBLIC_HOST}${router.asPath}`} />
+      <link rel="canonical" href={`${process.env.NEXT_PUBLIC_HOST}${router.defaultLocale}${router.asPath}`} />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Dmytro Habaznia - Website" />
       <meta property="og:description" content={meta.description} />

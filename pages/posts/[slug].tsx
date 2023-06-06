@@ -34,11 +34,9 @@ const components = {
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: PostType;
-  hostName: string;
 };
 
-const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element => {
-  const router = useRouter();
+const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
   const customMeta: MetaProps = {
     title: `${frontMatter.title} - Habaznia Dmytro`,
     description: frontMatter.description,
@@ -49,10 +47,6 @@ const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element
 
   return (
     <>
-      <Head>
-        {router.locales.map((locale) => <link key={locale} rel="alternate" hrefLang={locale} href={`${hostName}${locale}${router.asPath}`} />)}
-        <link rel="alternate" hrefLang="x-default" href={`${hostName}${router.defaultLocale}${router.asPath}`} />
-      </Head>
       <Layout customMeta={customMeta}>
         <article>
           <h1 className="mb-3 text-gray-900 dark:text-white">
@@ -100,7 +94,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: {
-      hostName: process.env.NEXT_PUBLIC_HOST,
       source: mdxSource,
       frontMatter: data,
       ...(await serverSideTranslations(locale, ['common']))

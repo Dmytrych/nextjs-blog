@@ -19,7 +19,6 @@ import {getAllLocalePostFilePaths, getLocalisedPostPath} from '../../utils/mdxUt
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
-import {useRouter} from "next/router";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how

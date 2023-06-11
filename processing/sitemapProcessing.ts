@@ -15,10 +15,10 @@ export function getStaticPageSubPaths() {
 
 export function getLocalizedStaticPaths(staticPageSubPaths, locales) {
     const staticPagesLocalizedPaths = locales.flatMap((locale) => {
-        return staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_HOST}${locale}/${staticPagePath}`);
+        return staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}${locale}/${staticPagePath}`);
     })
 
-    const staticPagesDefaultPaths = staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_HOST}${staticPagePath}`);
+    const staticPagesDefaultPaths = staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}${staticPagePath}`);
 
     return staticPagesLocalizedPaths.concat(staticPagesDefaultPaths)
 }

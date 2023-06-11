@@ -12,9 +12,9 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locales, def
     const staticPagesLocalizedPaths = getLocalizedStaticPaths(staticPageSubPaths, locales);
 
     const postSubPaths = locales.flatMap((locale) => getAllLocalePostUrlNames(locale).map((postName) => `${locale}/${postName}`))
-    const postPaths = postSubPaths.map((postSubPath) => `${process.env.NEXT_HOST}${postSubPath}`)
+    const postPaths = postSubPaths.map((postSubPath) => `${process.env.NEXT_PUBLIC_HOST}${postSubPath}`)
 
-    const defaultLocalePostPaths = getAllLocalePostUrlNames(defaultLocale).map((postName) => `${process.env.NEXT_HOST}${postName}`)
+    const defaultLocalePostPaths = getAllLocalePostUrlNames(defaultLocale).map((postName) => `${process.env.NEXT_PUBLIC_HOST}${postName}`)
 
     const allPaths = staticPagesLocalizedPaths.concat(postPaths).concat(defaultLocalePostPaths)
 

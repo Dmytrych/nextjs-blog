@@ -9,7 +9,7 @@ const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
     title: 'Dmytro Habaznia - Website',
     description:
       'Web developer from Kyiv, Ukraine',
-    //image: `${process.env.NEXT_HOST}/images/site-preview.png`,
+    //image: `${process.env.NEXT_PUBLIC_HOST}/images/site-preview.png`,
     type: 'website',
     ...customMeta,
   };

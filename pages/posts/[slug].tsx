@@ -15,11 +15,10 @@ import remarkGfm from 'remark-gfm';
 import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
 import { MetaProps } from '../../types/layout';
 import { PostType } from '../../types/post';
-import {getAllLocalePostFilePaths, getLocalisedPostPath} from '../../utils/mdxUtils';
+import {getLocalisedPostPath} from '../../utils/mdxUtils';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
-import {useRouter} from "next/router";
 import {getAllLocalePostUrlNames} from "../../utils/pathUtils";
 
 // Custom components/renderers to pass to MDX.
@@ -35,11 +34,9 @@ const components = {
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: PostType;
-  hostName: string;
 };
 
-const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element => {
-  const router = useRouter();
+const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
   const customMeta: MetaProps = {
     title: `${frontMatter.title} - Habaznia Dmytro`,
     description: frontMatter.description,
@@ -50,10 +47,6 @@ const PostPage = ({ source, frontMatter, hostName }: PostPageProps): JSX.Element
 
   return (
     <>
-      <Head>
-        {router.locales.map((locale) => <link key={locale} rel="alternate" hrefLang={locale} href={`${hostName}${locale}${router.asPath}`} />)}
-        <link rel="alternate" hrefLang="x-default" href={`${hostName}${router.defaultLocale}${router.asPath}`} />
-      </Head>
       <Layout customMeta={customMeta}>
         <article>
           <h1 className="mb-3 text-gray-900 dark:text-white">
@@ -101,7 +94,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: {
-      hostName: process.env.NEXT_HOST,
       source: mdxSource,
       frontMatter: data,
       ...(await serverSideTranslations(locale, ['common']))

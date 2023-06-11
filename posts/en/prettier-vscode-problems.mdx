@@ -1,0 +1,112 @@
+---
+title: "Fixing Prettier not working with VSCode"
+description: How to fix problems with Prettier formatting or code analysis inside Visual Studio Code.
+date: '2023-06-07'
+---
+
+<Image
+    alt={`Prettier + VSCode`}
+    src={`/images/prettier-vscode-problems/prettier_plus_vscode.png`}
+    width={1200}
+    height={664}
+    priority
+/>
+
+
+
+## Problem Description
+
+You have installed and enabled Prettier in your JS application, but Visual Studio Code does not format or highlight your code.
+
+If you have not yet installed Prettier in your application - you can see the guide for its installation [at the link](prettier-setup)
+
+## Ways of Fixing
+
+There are several possible problems that can occur with code analysis. Here are the main ones:
+
+
+
+## Prettier is Not Installed
+
+Check your `package.json` for the Prettier version installed:
+
+<Image
+    alt={`Prettier in package.json`}
+    src={`/images/prettier-vscode-problems/prettier_in_packagejson.png`}
+    width={197}
+    height={27}
+    priority
+/>
+
+If prettier is installed, try running `npm install`, just in case.
+
+
+## Prettier Extension in VSCode is Not Installed
+
+Make sure you have installed the Prettier extension in VSCode. If it is missing, you can find it at the link: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+
+
+## Invalid or Missing Configuration File
+
+Check that the `.prettierrc` or `prettier.config.js` file is present and correct.
+
+Try replacing your configuration file with another, verified file. You can use the basic config from the documentation:
+
+```JSON
+{
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
+}
+```
+
+
+
+## Prettier is Not Set as a Default Code Formatter
+
+Go to `File -> Preferences -> Settings` or (`Ctrl` + `comma`). And do a search on the word `formatter`.
+
+In the opened tab, select 'Default Formatter' - `Prettier'.
+
+<Image
+    alt={`Vscode default formatter selection`}
+    src={`/images/prettier-vscode-problems/vscode_formatter_select.png`}
+    width={837}
+    height={973}
+    priority
+/>
+
+
+
+## Disabled File Extensions or Incorrect Language Configurations
+
+Prettier can be configured to disable parsing for certain file types - so check that the required files are not included in the `prettier-ignore` file.
+Also, check that your file extension is spelled correctly.
+
+Also, make sure that the settings correspond to the programming language you are using.
+
+
+
+## Conflicting VSCode Extensions
+
+Try disabling other VSCode extensions. Conflicting extensions can interfere with Prettier.
+
+
+
+## Obsolete Prettier version
+
+Newer versions of VSCode extensions may not support older versions of Prettier. If necessary, raise the Prettier version in `package.json`.
+
+
+## Conclusion
+
+In this article, we looked at possible problems with the integration of Prettier and VSCode. I hope that these tips will help you solve the problems you encountered.
+
+## Using Prettier with ESLint? See also:
+
+- [Difference between Plugins and ESLint Rules](eslint-rules-vs-plugins)
+- [Mastering ESLint Configurations: Best Practices](eslint-best-practices)
+
+[More interesting articles](/).

@@ -10,8 +10,6 @@ type LayoutProps = {
   customMeta?: MetaProps;
 };
 
-export const WEBSITE_HOST_URL = 'https://nextjs-typescript-mdx-blog.vercel.app';
-
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>

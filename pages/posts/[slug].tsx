@@ -15,10 +15,11 @@ import remarkGfm from 'remark-gfm';
 import Layout, { WEBSITE_HOST_URL } from '../../components/Layout';
 import { MetaProps } from '../../types/layout';
 import { PostType } from '../../types/post';
-import {getAllLocalePostFilePaths, getLocalisedPostPath} from '../../utils/mdxUtils';
+import {getLocalisedPostPath} from '../../utils/mdxUtils';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
+import {getAllLocalePostUrlNames} from "../../utils/pathUtils";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -104,10 +105,7 @@ export const getStaticPaths: GetStaticPaths = async ({locales}) => {
   let paths = [];
 
   locales.map((locale) => {
-    paths = paths.concat(
-      getAllLocalePostFilePaths(locale)
-        // Remove file extensions for page paths
-        .map((path) => path.replace(/\.mdx?$/, ''))
+    paths = paths.concat(getAllLocalePostUrlNames(locale)
         // Map the path into the static paths object required by Next.js
         .map((slug) => ({ params: { slug }, locale })));
   })

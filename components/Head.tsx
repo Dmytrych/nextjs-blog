@@ -9,7 +9,7 @@ const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
     title: 'Dmytro Habaznia - Website',
     description:
       'Web developer from Kyiv, Ukraine',
-    //image: `${process.env.NEXT_HOST}/images/site-preview.png`,
+    //image: `${process.env.NEXT_PUBLIC_HOST}/images/site-preview.png`,
     type: 'website',
     ...customMeta,
   };
@@ -21,7 +21,7 @@ const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
       <link rel="apple-touch-icon" href="/favicon.ico" />
       <meta content={meta.description} name="description" />
       <meta property="og:url" content={`${process.env.NEXT_PUBLIC_HOST}${router.asPath}`} />
-      <link rel="canonical" href={`${process.env.NEXT_PUBLIC_HOST}${router.defaultLocale}${router.asPath}`} />
+      <link rel="canonical" href={`${process.env.NEXT_PUBLIC_HOST}${router.locale}${router.asPath}`} />
       {router.locales.map((locale) => <link key={locale} rel="alternate" hrefLang={locale} href={`${process.env.NEXT_PUBLIC_HOST}${locale}${router.asPath}`} />)}
       <link rel="alternate" hrefLang="x-default" href={`${process.env.NEXT_PUBLIC_HOST}${router.defaultLocale}${router.asPath}`} />
       <meta property="og:type" content={meta.type} />

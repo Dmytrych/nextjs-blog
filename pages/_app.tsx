@@ -10,7 +10,7 @@ import {appWithTranslation} from "next-i18next";
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const router = useRouter();
 
-  if (!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_ANALYTICS){
+  if (process.env.NEXT_PUBLIC_DISABLE_GOOGLE_ANALYTICS === "false"){
     useEffect(() => {
       const handleRouteChange = (url) => {
         gtag.pageview(url);
@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
   return (
     <>
-        {!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_ANALYTICS && (<>
+        {process.env.NEXT_PUBLIC_DISABLE_GOOGLE_ANALYTICS === "false" && (<>
           <Script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6281606897577273"

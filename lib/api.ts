@@ -1,19 +1,19 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
-import { POSTS_PATH } from '../utils/mdxUtils';
+import {getLocalisedPostPath} from '../utils/postUtils';
 
-export function getPostSlugs(): string[] {
-  return fs.readdirSync(POSTS_PATH);
+export function getPostSlugs(locale: string): string[] {
+  return fs.readdirSync(getLocalisedPostPath(locale));
 }
 
 type PostItems = {
   [key: string]: string;
 };
 
-export function getPostBySlug(slug: string, fields: string[] = []): PostItems {
+export function getPostBySlug(slug: string, locale: string, fields: string[] = []): PostItems {
   const realSlug = slug.replace(/\.mdx$/, '');
-  const fullPath = join(POSTS_PATH, `${realSlug}.mdx`);
+  const fullPath = join(getLocalisedPostPath(locale), `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
@@ -35,10 +35,10 @@ export function getPostBySlug(slug: string, fields: string[] = []): PostItems {
   return items;
 }
 
-export function getAllPosts(fields: string[] = []): PostItems[] {
-  const slugs = getPostSlugs();
+export function getAllPosts(locale, fields: string[] = []): PostItems[] {
+  const slugs = locale ? getPostSlugs(locale) : [];
   const posts = slugs
-    .map((slug) => getPostBySlug(slug, fields))
+    .map((slug) => getPostBySlug(slug, locale, fields))
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;

@@ -6,7 +6,6 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import path from 'path';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
@@ -35,6 +34,7 @@ const components = {
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: PostType;
+  suggestedPostsInfo: IPostInfo[];
 };
 
 const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): JSX.Element => {

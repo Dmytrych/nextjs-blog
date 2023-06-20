@@ -1,0 +1,109 @@
+---
+title: Як встановити Prettier в React застосунок з нуля
+description: Навчіться встановлювати інструменти для форматування коду у ваш React застосунок.
+date: '2023-05-17'
+---
+
+## Що таке Prettier?
+
+Prettier - це інструмент для форматування коду у вашому застосунку. Використання prettier допоможе у написанні та підтриманні консистентного і легко читабельного коду, що допоможе в командній розробці застосунків. Але це не означає, що prettier не потрібен вам у вашому pet-проекті, якщо ви новачок у програмуванні, або тільки вчите JavaScript - Prettier допоможе сформувати звичку використання найкращих практик з форматування вашого коду. Prettier підтримується більшістю популярних IDE (Visual Studio Code, WebStorm та ін.).
+
+## Як встановити Prettier у ваш React застосунок?
+
+Для початку встановіть npm пакет у ваш проект:
+
+Для npm:
+
+```
+npm install --save-dev --save-exact prettier
+```
+
+Для yarn:
+
+```
+yarn add --dev --exact prettier
+```
+
+Після встановлення, додайте в кореневу папку проекту файлик **.prettierrc**. Цей файл містить конфігурацію правил форматування коду. Розробники prettier рекомендують наступну конфігурацію за замовчуванням:
+
+```JSON
+{
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
+}
+```
+
+Додайте цей JSON у створений .prettierrc файл.
+
+Щоб автоматично полагодити усі наявні проблеми у вашому проекті - запустіть наступну команду в корені проекту:
+```
+npx prettier --write .
+```
+для yarn:
+```
+yarn prettier --write .
+```
+
+## Налаштування Prettier для ESLint
+
+[Тут](eslint-setup) можна знайти як встановити та налаштувати ESLint.
+
+У разі якщо ваш проект вже використовує ESLint, проведіть наступні налаштування:
+
+Для початку в проект необхідно встановити пакет eslint-config-prettier. Цей пакет вимкне усі правила ESLint, які дублікують або конфліктують з Prettier:
+npm:
+```
+npm install eslint-config-prettier
+```
+yarn
+```
+yarn install eslint-config-prettier
+```
+
+Після встановлення перейдіть у .eslintrc файл, та додайте "prettier" в список:
+```
+...
+  "extends": [
+    "some-other-config-you-use",
+    "prettier"
+  ]
+...
+```
+
+## Додаємо підсвітку в IDE
+
+### Visual Studio Code
+
+Встановіть пакет "Prettier - Code formatter" у VS Code.
+
+<Image
+    alt={`Prettier in VS Code`}
+    src={`/images/prettier-setup/VS_Prettier.png`}
+    width={676}
+    height={139}
+    priority
+/>
+
+Після перезапуску, IDE автоматично знайде ваш .prettierrc файл, та почне підсвічувати синтаксис. Готово.
+
+### WebStorm
+
+Зайдіть в Налаштування > Плагіни. Знайдіть у пошуку плагін Prettier та встановіть його.
+
+<Image
+    alt={`Prettier in webstorm`}
+    src={`/images/prettier-setup/WebStorm_Prettier.png`}
+    width={327}
+    height={54}
+    priority
+/>
+
+Одразу після встановлення, має з'явитися підсвітка коду.
+
+### Для інших IDE
+
+Для інших IDE можете звернутися до [офіційної документації Prettier](https://prettier.io/docs/en/editors.html). В ній є інструкції для більшості популярних середовищ розробки.
+
+[Більше цікавих статей](/).

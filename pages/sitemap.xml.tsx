@@ -1,6 +1,6 @@
+import {getAllLocalePostUrlNames} from "../utils/pathUtils";
 import {GetServerSideProps} from "next";
 import {getLocalizedStaticPaths, getStaticPageSubPaths} from "../processing/sitemapProcessing";
-import {getAllLocalePostUrlNames} from "../utils/postUtils";
 
 const SitemapXml = () => {
     return null;

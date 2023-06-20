@@ -1,0 +1,91 @@
+---
+title: "ESLint: How to install and configure?"
+description: Guide, explaining how to install and configure ESLint for your JS project.
+date: '2023-05-21'
+---
+
+## What is ESLint?
+
+ESLint is a linter for NodeJS applications. Its purpose is to automatically detect potential problems in your code. Linters, and ESLint in particular, can identify not only problems in code formatting, but also see potential bugs, problems in operation, gaps in the security of your application.
+
+This is what makes ESLint different from the code formatting tool, Prettier, which can only find and fix code style issues, but won't tell you if your code contains an error. Prettier can be used in combination with ESLint to promote code styles. More about how to install Prettier - ([in a separate article](prettier-setup)).
+
+## Installation
+
+In order to automatically install ESLint and add all the necessary files for work, it is enough to write the following command in the terminal:
+
+```
+npm init @eslint/config
+```
+
+After entering the command, you will be asked which ESLint feature you plan to use. The selection is made with the keyboard arrows, and the selection window itself looks like this:
+
+<Image
+    src={`/images/eslint-setup/choice.png`}
+    width={513}
+    height={81}
+    priority
+/>
+
+Based on your selection, the linter settings will be selected.
+
+## Configuration process
+
+There is no point in describing the full process at this time, but I would like to draw your attention to a few points:
+
+<details>
+    <summary>**"How would you like to define a style for your project?"**</summary>
+
+    In this option, I advise you to choose the `guide` option if you are setting up ESLint for the first time. Any settings you need can be changed after installation whenever you need.
+</details>
+
+<details>
+    <summary>**"Which style guide do you want to follow?"**</summary>
+
+    Again, for the first time I advise you to set `Standard`, and change if necessary.
+</details>
+
+<details>
+    <summary>**"What format do you want your config file to be in?"**</summary>
+
+    Here you can choose any of the formats. But I would like to emphasize that most articles on the Internet use the JSON format. This article will be no exception.
+</details>
+
+After the installation process, a `.eslintrc.*` file with the selected extension should appear in your project.
+
+My `.eslintrc.json` looks like this:
+<Image
+    src={`/images/eslint-setup/eslintrc.png`}
+    width={395}
+    height={340}
+    priority
+/>
+
+## ESLint plugins
+
+ESLint, in addition to the standard set of rules, has an interface for installing add-ons (plugins) into your project. In order to use a custom plugin, you need to install it via npm/yarn, and then add the plugin to the `plugins` list.
+
+An example of setting up the Prettier plugin for ESLint can be seen in [the previous article](prettier-setup).
+
+Useful plugins for ESLint [found here](https://github.com/dustinspecker/awesome-eslint#plugins).
+
+## IDE support
+
+Some IDEs require additional configuration to enable ESLint error highlighting in the editor. Plugins or guides for configuring ESLint for popular IDEs:
+
+- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [WebStorm](https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_activate)
+- [Sublime Text](https://packagecontrol.io/packages/ESLint)
+- [Vim](https://vimawesome.com/plugin/eslint)
+- [Atom](https://hackernoon.com/set-up-eslint-in-atom-83dfb3d34fdf)
+
+## Summary
+
+ESLint is a linter for NodeJS applications with extensive functionality that will help you monitor compliance with code styles in your project, help you find potential bugs or syntax errors. ESLint can be configured quite flexibly by point-editing its rules and installing external add-ons. ESLint has integration with an extensive list of development environments.
+
+## Read more about ESLint
+
+- [Difference between ESLint Plugins and Rules](eslint-rules-vs-plugins)
+- [Official documentation](https://eslint.org/docs/latest/).
+
+[More articles](/).

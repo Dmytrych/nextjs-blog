@@ -5,29 +5,18 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { getAllPosts } from '../lib/api';
 import { PostType } from '../types/post';
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useTranslation} from "next-i18next";
 
 type IndexProps = {
   posts: PostType[];
 };
 
 export const Index = ({ posts }: IndexProps): JSX.Element => {
+  const { t } = useTranslation();
   return (
     <Layout>
-      <h1>Home Page</h1>
-      <p>Next.js starter for your next blog or personal site. Built with:</p>
-      <ul className="list-disc pl-4 my-6">
-        <li>Next.js</li>
-        <li className="mt-2">Typescript</li>
-        <li className="mt-2">MDX</li>
-        <li className="mt-2">Tailwind CSS</li>
-      </ul>
-
-      <a
-        href="https://github.com/ChangoMan/nextjs-typescript-mdx-blog"
-        className="inline-block px-7 py-3 rounded-md text-white dark:text-white bg-blue-600 hover:bg-blue-700 hover:text-white dark:hover:text-white"
-      >
-        Get the source code!
-      </a>
+      <h1>{t('common:home')}</h1>
 
       {posts.map((post) => (
         <article key={post.slug} className="mt-12">
@@ -44,7 +33,7 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
           <p className="mb-3">{post.description}</p>
           <p>
             <Link as={`/posts/${post.slug}`} href={`/posts/[slug]`}>
-              <a>Read More</a>
+              <a>{t('index:read')}...</a>
             </Link>
           </p>
         </article>
@@ -53,11 +42,11 @@ export const Index = ({ posts }: IndexProps): JSX.Element => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts(['date', 'description', 'slug', 'title']);
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const posts = getAllPosts(locale, ['date', 'description', 'slug', 'title']);
 
   return {
-    props: { posts },
+    props: { posts, ...(await serverSideTranslations(locale, ['index', 'common'])) },
   };
 };
 

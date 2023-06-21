@@ -51,7 +51,7 @@ const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): J
       <Layout customMeta={customMeta}>
         <div>
           {suggestedPostsInfo.map((post, index) => <div key={index}>
-            {JSON.stringify(post)}
+            <Link href={post.url}>{post.url}</Link>
           </div>)}
         </div>
         <article>
@@ -70,9 +70,9 @@ const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): J
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale, locales }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale, locales, defaultLocale }) => {
   const postFilePath = path.join(getLocalisedPostPath(locale), `${params.slug}.mdx`);
-  const morePostsInfo = getPostsInfo(locale, locales);
+  const morePostsInfo = getPostsInfo(locale, locales, defaultLocale);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);

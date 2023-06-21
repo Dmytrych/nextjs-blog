@@ -8,14 +8,16 @@ export interface IPostInfo {
     allLocales: string[],
 }
 
-export function getPostsInfo(postLocale: string, allLocales: string[]): IPostInfo[] {
+export function getPostsInfo(postLocale: string, allLocales: string[], defaultLocale: string): IPostInfo[] {
     const allLocalePostNames = getAllLocalePostUrlNames(postLocale);
     const localeFolderPath = getLocalisedPostPath(postLocale);
 
     return allLocalePostNames.map((postName) => {
         return {
             storagePath: path.join(localeFolderPath, postName),
-            url: getAppUrl(postName, postLocale),
+            url: defaultLocale === postLocale
+              ? getAppUrl(`/posts/${postName}`)
+              : getAppUrl(`/posts/${postName}`, postLocale),
             allLocales: getPostLocales(postName, allLocales)
         } as IPostInfo
     });

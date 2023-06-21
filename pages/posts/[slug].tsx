@@ -15,11 +15,12 @@ import remarkGfm from 'remark-gfm';
 import Layout from '../../components/Layout';
 import { MetaProps } from '../../types/layout';
 import { PostType } from '../../types/post';
-import {getLocalisedPostPath} from '../../utils/mdxUtils';
+import {getAllLocalePostUrlNames, getLocalisedPostPath} from '../../utils/postUtils';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
-import {getAllLocalePostUrlNames} from "../../utils/pathUtils";
+import {getPostsInfo, IPostInfo} from "../../utils/postRepository";
+import {PostSuggestions} from "../../components/PostSuggestions";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -34,9 +35,10 @@ const components = {
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
   frontMatter: PostType;
+  suggestedPostsInfo: IPostInfo[];
 };
 
-const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
+const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): JSX.Element => {
   const customMeta: MetaProps = {
     title: `${frontMatter.title} - Habaznia Dmytro`,
     description: frontMatter.description,
@@ -48,7 +50,7 @@ const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
   return (
     <>
       <Layout customMeta={customMeta}>
-        <article>
+        <article className="mb-10">
           <h1 className="mb-3 text-gray-900 dark:text-white">
             {frontMatter.title}
           </h1>
@@ -59,13 +61,17 @@ const PostPage = ({ source, frontMatter }: PostPageProps): JSX.Element => {
             <MDXRemote {...source} components={components} />
           </div>
         </article>
+        <div>
+          <PostSuggestions postsInfo={suggestedPostsInfo}/>
+        </div>
       </Layout>
     </>
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale, locales, defaultLocale }) => {
   const postFilePath = path.join(getLocalisedPostPath(locale), `${params.slug}.mdx`);
+  const morePostsInfo = getPostsInfo(locale, locales, defaultLocale);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);
@@ -94,6 +100,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: {
+      suggestedPostsInfo: morePostsInfo,
       source: mdxSource,
       frontMatter: data,
       ...(await serverSideTranslations(locale, ['common']))

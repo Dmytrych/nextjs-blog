@@ -9,16 +9,26 @@ export function getLocalisedPostPath(locale: string): string {
 }
 
 // postFilePaths is the list of all mdx files inside the POSTS_PATH directory
-export function getAllLocalePostFilePaths(locale: string): string[] {
+export function getAllLocalePostFileNames(locale: string): string[] {
   try{
-    return getMdxFilePathsFromLocaleFolder(locale);
+    return getMdxFileNamesFromLocaleFolder(locale);
   }
   catch {
     throw new Error(`Could not find posts paths for locale: ${locale}`)
   }
 }
 
-function getMdxFilePathsFromLocaleFolder(locale: string): string[] {
+export function getPostLocales(postName: string, allLocales: string[]): string[] {
+  return allLocales.filter((locale) => getAllLocalePostUrlNames(locale).includes(postName))
+}
+
+export function getAllLocalePostUrlNames(locale: string): string[] {
+  return getAllLocalePostFileNames(locale)
+      // Remove file extensions for page paths
+      .map((path) => path.replace(/\.mdx?$/, ''));
+}
+
+function getMdxFileNamesFromLocaleFolder(locale: string): string[] {
   return fs.readdirSync(path.join(POSTS_PATH, locale))
     // Only include md(x) files
     .filter((path) => /\.mdx?$/.test(path));

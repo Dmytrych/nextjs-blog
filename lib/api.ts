@@ -1,7 +1,7 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
-import {getLocalisedPostPath} from '../utils/mdxUtils';
+import {getLocalisedPostPath} from '../utils/postUtils';
 
 export function getPostSlugs(locale: string): string[] {
   return fs.readdirSync(getLocalisedPostPath(locale));

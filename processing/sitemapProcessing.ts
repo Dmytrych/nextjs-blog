@@ -6,7 +6,9 @@ const sitemapIgnoredFiles = [
     "_app.tsx",
     "_document.tsx",
     "404.tsx",
-    "sitemap.xml.tsx"]
+    "sitemap.xml.tsx",
+    "posts",
+    "index.tsx"]
 
 export function getStaticPageSubPaths() {
     const staticPageFiles = getFilteredPageFiles()
@@ -15,10 +17,10 @@ export function getStaticPageSubPaths() {
 
 export function getLocalizedStaticPaths(staticPageSubPaths, locales) {
     const staticPagesLocalizedPaths = locales.flatMap((locale) => {
-        return staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}${locale}/${staticPagePath}`);
+        return staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}/${locale}/${staticPagePath}`);
     })
 
-    const staticPagesDefaultPaths = staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}${staticPagePath}`);
+    const staticPagesDefaultPaths = staticPageSubPaths.map((staticPagePath) => `${process.env.NEXT_PUBLIC_HOST}/${staticPagePath}`);
 
     return staticPagesLocalizedPaths.concat(staticPagesDefaultPaths)
 }

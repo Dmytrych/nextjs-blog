@@ -20,6 +20,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 import React from "react";
 import {getPostsInfo, IPostInfo} from "../../utils/postRepository";
+import {PostSuggestions} from "../../components/PostSuggestions";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -49,12 +50,7 @@ const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): J
   return (
     <>
       <Layout customMeta={customMeta}>
-        <div>
-          {suggestedPostsInfo.map((post, index) => <div key={index}>
-            <Link href={post.url}>{post.url}</Link>
-          </div>)}
-        </div>
-        <article>
+        <article className="mb-10">
           <h1 className="mb-3 text-gray-900 dark:text-white">
             {frontMatter.title}
           </h1>
@@ -65,6 +61,9 @@ const PostPage = ({ source, frontMatter, suggestedPostsInfo }: PostPageProps): J
             <MDXRemote {...source} components={components} />
           </div>
         </article>
+        <div>
+          <PostSuggestions postsInfo={suggestedPostsInfo}/>
+        </div>
       </Layout>
     </>
   );

@@ -6,7 +6,9 @@ const sitemapIgnoredFiles = [
     "_app.tsx",
     "_document.tsx",
     "404.tsx",
-    "sitemap.xml.tsx"]
+    "sitemap.xml.tsx",
+    "posts",
+    "index.tsx"]
 
 export function getStaticPageSubPaths() {
     const staticPageFiles = getFilteredPageFiles()

@@ -32,3 +32,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/Project.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml

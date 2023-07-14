@@ -1,0 +1,127 @@
+---
+title: "Як зробити Infinite Scroll в React з використанням IntersectionObserver"
+description: "Найпростіший спосіб імплементувати infinite scroll компонент у вашому React JS застосунку, без зовнішніх бібліотек, з використанням IntersectionObserver API."
+date: '2023-07-14'
+---
+
+В цьому гайді я поясню як зробити нескінченний скролл в React застосунку, використовуючи `IntersectionObserver`. Наразі, цей споіб є один з найефективніших способів імплементації інфініт скролу без підключення бібліотек типу `react-scroll`.
+
+## Підготовка
+
+Припускаючи, що ви вже маєте готовий React проект - ми почнемо зі створення нового компонента `InfiniteScroll`, в якому далі і працюватимемо.
+
+```jsx
+import React from 'react';
+
+const InfiniteScroll = () => {
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+```
+
+## Імплементація нескінченного скролу з IntersectionObserver
+
+В компоненті `InfiniteScroll` потрібно створити `IntersectionObserver` і прикріпити його до елемента `marker`, за яким ми й спостерігатимемо.
+
+Як тільки елемент помічений `marker` буде видимий у межах екрана - запуститься колбек, який ми передали і дістане більше даних.
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+
+const InfiniteScroll = ({ fetchMoreData }) => {
+  const marker = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchMoreData();
+      }
+    });
+
+    if (marker.current) {
+      observer.observe(marker.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+      <div ref={marker}>Loading...</div>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+
+```
+
+У коді вище, ми додали новий `div` з полем `ref` у яке передали `marker`. За цим елементом і спостерігатиме `IntersectionObserver`.
+
+`fetchMoreData` повинна діставати більше даних, та приєднувати їх до раніше завантажених.
+
+## Як вирішити проблему повторного завантаження першої сторінки даних?
+
+You may have faced an issue that you keep loading the same page of data each time more data is loaded. This is caused by the `fetchMoreData` function being locked inside of the expression, which is passed inside `IntersectionObserver`. This means that this expression uses the version of `fetchMoreData` which was created on the very first render of the page, and it is not changed afterwards.
+
+Можливо, ви стикнулися з проблемою, що замість того, щоб при кожному підвантаженні діставати нову сторінку - `fetchMoreData` завантажує одну й ту саму сторінку даних багато разів. Це спричинено тим, що `fetchMoreData` захоплюється лямбда-виразом, який ми передаємо в  `IntersectionObserver`, і не оновлюється при наступних рендерах компоненту.
+
+Як раз в тому, що значення функції не оновлюється - і є проблема. Бо якщо функція використовує змінні стейту - то при кожному рендері вона створюється занову. Тому на кожному новому рендері вона не буде такою самою як на минулому рендері. А оскільки в `IntersectionObserver` потрапляє лише значення `fetchMoreData` на самому першому рендері - то і при завантаженн даних повертається перша сторінка даних.
+
+To fix this - you need to provide a fresh value of the `fetchMoreData` function each time it is called. It can easily be reached with using `useRef` hook.
+
+Щоб це полагодити - потрібно постійно надавати `IntersectionObserver` свіже значення функції. Для цього скористаємося ще одним `useRef`:
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+
+const InfiniteScroll = ({ fetchMoreData }) => {
+  const marker = useRef();
+  const fetchMoreDataRef = useRef(fetchMoreData);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchMoreDataRef.current();
+      }
+    });
+
+    if (marker.current) {
+      observer.observe(marker.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+      <div ref={marker}>Loading...</div>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+
+```
+
+
+Використовуючи `useRef`, ми добилися того, щоб в разі появи маркера на екрані - `IntersectionObserver` діставатиме свіже значення з `useRef`, яке постійно оновлюється.
+
+## Мінуси використання IntersectionObserver для інфініт скролу в React застосунках
+
+1. **Проблеми з перформансом:** Якщо імплементований неправильно, інфініт скрол може створити проблеми з перформансом. У разі якщо багато контенту завантажиться в DOM - сторінка може почати повільно працювати, аж до повної відмови. Щоб уникнути цього - важливо імплементувати очистку записів, які користувач давно проскролив.
+
+2. **SEO Оптимізація:** Інфініт скрол може ускладнити індексування вашого сайту. Пошуковики можуть не мати змоги повністю проіндексувати контент який завантажується інфініт скролом.
+
+3. **Навігація користувача:** Інфініт скрол може унеможливити перегляд футеру вашого сайту. Якщо він має якусь важливу інформацію - користувач не побачить її, оскільки постійно підвантажуватиметься новий контент.
+
+4. **Несумісність зі старими браузерами:** `IntersectionObserver` підтримується не в усіх браузерах. Хоча найпопулярніші браузери вже мають його підтримку - старі браузери її не мають. Тож якщо ваш застосунок використовуватимуть зі старих або маловідомих браузерів - можливі проблеми.
+
+Проте пам'ятайте, це лише потенційні мінуси, і деякі з них можуть бути уникненні правильним плануванням та якістю імплементації. Правильне використання `IntersectionObserver` насправді залежить від вашого варіанту застосування.

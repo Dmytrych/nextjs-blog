@@ -1,0 +1,132 @@
+---
+title: "Implementing Infinite Scroll in a React App using IntersectionObserver"
+description: "Discovering the easiest way of implementing an infinite scroll component in your React JS application without using any libraries."
+date: '2023-07-14'
+---
+
+In this guide, we'll be creating an infinite scroll feature in a React app using the `IntersectionObserver` API, which currently is one of the easiest ways of implementing an adaptive infinite scroll component without any libraries like `react-scroll`.
+
+## Initial Setup
+
+Assuming you already have a React project setup, we will start by creating a new component, let's call it `InfiniteScroll`.
+
+```jsx
+import React from 'react';
+
+const InfiniteScroll = () => {
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+```
+
+## Implementing Infinite Scroll with IntersectionObserver
+
+In the `InfiniteScroll` component, we need to initialize our `IntersectionObserver` and attach it to a `marker` element that will be observed.
+
+Whenever our marker comes into view, our callback will be fired, and we can fetch more data.
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+
+const InfiniteScroll = ({ fetchMoreData }) => {
+  const marker = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchMoreData();
+      }
+    });
+
+    if (marker.current) {
+      observer.observe(marker.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+      <div ref={marker}>Loading...</div>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+
+```
+
+In the above code, we have added a new `div` with a `ref` of `marker`. This is the element we'll be observing with our `IntersectionObserver`. When this element comes into the viewport, our callback will fire and call the `fetchMoreData` function.
+
+The `fetchMoreData` function should be a function that fetches more data and appends it to your current list of data.
+
+## How to solve the repeating data problem?
+
+You may have faced an issue that you keep loading the same page of data each time more data is loaded. This is caused by the `fetchMoreData` function being locked inside of the expression, which is passed inside `IntersectionObserver`. This means that this expression uses the version of `fetchMoreData` which was created on the very first render of the page, and it is not changed afterwards.
+
+To fix this - you need to provide a fresh value of the `fetchMoreData` function each time it is called. It can easily be reached with using `useRef` hook.
+
+Modify your code to look similar:
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+
+const InfiniteScroll = ({ fetchMoreData }) => {
+  const marker = useRef();
+  const fetchMoreDataRef = useRef(fetchMoreData);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        fetchMoreDataRef.current();
+      }
+    });
+
+    if (marker.current) {
+      observer.observe(marker.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <h1>Infinite Scroll Component</h1>
+      <div ref={marker}>Loading...</div>
+    </div>
+  );
+};
+
+export default InfiniteScroll;
+
+```
+
+By passing the `fetchMoreData` into `useRef`, we made its value to be updated, with the fresh `current` value all the time. This means that when the `IntersectionObserver` calls `fetchMoreDataRef.current()` - it calls the latest value of the function, which triggers loading of the **new** page of data.
+
+## Drawbacks of using an IntersectionObserver for infinite scroll implementation
+
+1. **Performance Issues:** If not implemented correctly, infinite scrolling can cause performance issues. As more and more content is loaded and added to the DOM, the website can become slow and unresponsive over time. Therefore, it's essential to implement some sort of cleanup or "virtual scrolling" where off-screen elements are removed from the DOM.
+
+2. **SEO Challenges:** Infinite scroll can be a challenge for SEO. Search engines traditionally crawl websites by following links and may not be able to fully index content that is loaded via infinite scroll. However, this can be mitigated by providing a traditional pagination fallback for search engine crawlers.
+
+3. **User Navigation:** Infinite scroll can make it difficult for users to reach the footer of your page. If important links or information are located there, users might never see them because new content keeps loading. A potential solution can be to have a static footer or include important links elsewhere.
+
+4. **Browser Compatibility:** `IntersectionObserver` is not supported in all browsers, although support is now widespread and includes all modern browsers. However, if you're developing an app that needs to support older browsers, this could be a significant drawback.
+
+Remember, these are potential drawbacks, but many of them can be mitigated with careful planning and good implementation practices. The correct use of the `IntersectionObserver` API for infinite scroll really depends on your specific application and user needs.
+
+## Conclusion
+
+We have explored how to create an infinite scroll feature in a React application using the `IntersectionObserver` API. By initializing an `IntersectionObserver` and linking it to a designated `marker` element, we've seen how we can progressively load more content as the user scrolls, providing a seamless user experience.
+
+We have also addressed a common issue regarding the inadvertent reloading of the same data page by encapsulating our data fetching function (`fetchMoreData`) within a `useRef` hook. This solution ensures we always reference the latest iteration of our function, enabling us to load new pages of data consistently.
+
+While the `IntersectionObserver` API provides an effective and straightforward solution, it's essential to remember that more complex apps may require more sophisticated error handling and optimization. The principles outlined here, however, will lay a solid foundation for creating an efficient and user-friendly infinite scroll feature.
+
+As you implement these strategies in your applications, you'll be well on your way to creating a more immersive, engaging user experience that keeps your audience scrolling for more. Happy coding!

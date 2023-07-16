@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="627f69d9-e0d0-4c24-bc56-3809d510bffa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/posts/en/querying-mongodb-with-chatgpt.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/querying-mongodb-with-chatgpt/chatgpt-no-explanations-mongosh-query.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/querying-mongodb-with-chatgpt/chatgpt-optimizing-mongo-query.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/querying-mongodb-with-chatgpt/title.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/postRepository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/urlUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/posts/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/posts/[slug].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/sitemap.xml.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/sitemap.xml.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/mdxUtils.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/postUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/postUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts/uk/react-intersection-observer-infinite-scroll.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/posts/uk/react-intersection-observer-infinite-scroll.mdx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,15 +36,17 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;production&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Lampa/Documents/GitHub/nextjs-blog/posts/uk&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettier.import.notification.dismissed&quot;: &quot;true&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Lampa\\Documents\\GitHub\\nextjs-blog\\node_modules\\prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Lampa\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\231.8109.174\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Lampa\\Documents\\GitHub\\nextjs-blog\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -124,10 +117,22 @@
       <workItem from="1687102298784" duration="1023000" />
       <workItem from="1687111841347" duration="58000" />
       <workItem from="1687154943116" duration="3592000" />
+      <workItem from="1688624399791" duration="1808000" />
+      <workItem from="1688658776434" duration="177000" />
+      <workItem from="1688658963434" duration="843000" />
+      <workItem from="1689182807838" duration="610000" />
+      <workItem from="1689337852956" duration="1620000" />
+      <workItem from="1689500962090" duration="659000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/lib/gtag.js" />
+        <option value="$PROJECT_DIR$/lib/gtag.js" />
+      </list>
+    </option>
   </component>
 </project>
